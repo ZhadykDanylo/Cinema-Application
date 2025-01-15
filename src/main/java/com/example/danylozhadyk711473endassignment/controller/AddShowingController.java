@@ -1,6 +1,7 @@
 package com.example.danylozhadyk711473endassignment.controller;
 
 import com.example.danylozhadyk711473endassignment.model.Showing;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,7 +117,7 @@ public class AddShowingController extends BaseController {
         LocalDateTime startDateTime = getLocalDateTime(startDatePicker, startTimeField);
         LocalDateTime endDateTime = getLocalDateTime(endDatePicker, endTimeField);
 
-        ObservableList<Showing> showings = db.getShowings(); // Use inherited `db`
+        ObservableList<Showing> showings = FXCollections.observableArrayList(db.getShowings()); // Use inherited `db`
         showings.add(new Showing(title, startDateTime, endDateTime));
         db.setShowings(showings);
     }

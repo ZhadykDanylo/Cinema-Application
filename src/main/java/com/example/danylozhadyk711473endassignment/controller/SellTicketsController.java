@@ -3,6 +3,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 import com.example.danylozhadyk711473endassignment.database.Database;
 import com.example.danylozhadyk711473endassignment.model.Showing;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -65,7 +66,8 @@ public class SellTicketsController extends BaseController {
     }
 
     private void loadShowings() {
-        showings = database.getShowings().filtered(showing -> showing.getStartTime().isAfter(LocalDateTime.now()));
+        ObservableList<Showing> allShowings = FXCollections.observableArrayList(database.getShowings());
+        showings = allShowings.filtered(showing -> showing.getStartTime().isAfter(LocalDateTime.now()));
         showingTable.setItems(showings);
     }
 

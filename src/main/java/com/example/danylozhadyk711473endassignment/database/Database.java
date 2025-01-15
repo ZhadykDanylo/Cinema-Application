@@ -6,15 +6,56 @@ import com.example.danylozhadyk711473endassignment.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
+public class Database implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private static Database instance;
     private List<User> users;
-    private ObservableList<Showing> showings;
-    private ObservableList<Sale> sales;
+    private List<Showing> showings;
+    private List<Sale> sales;
+
+    private static final String DATABASE_FILE = "database_state.bin";
+
+    public void saveState() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATABASE_FILE))) {
+            oos.writeObject(new ArrayList<>(users));
+            oos.writeObject(new ArrayList<>(showings));
+            oos.writeObject(new ArrayList<>(sales));
+            System.out.println("Database state saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Failed to save database state.");
+            e.printStackTrace();
+        }
+    }
+
+    // Load the database state
+    public static Database loadState() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATABASE_FILE))) {
+            List<User> loadedUsers = (List<User>) ois.readObject();
+            List<Showing> loadedShowings = (List<Showing>) ois.readObject();
+            List<Sale> loadedSales = (List<Sale>) ois.readObject();
+
+            instance = new Database();
+            instance.users = loadedUsers;
+            instance.showings = FXCollections.observableArrayList(loadedShowings);
+            instance.sales = FXCollections.observableArrayList(loadedSales);
+
+            System.out.println("Database state loaded successfully.");
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous database state found. Starting fresh.");
+            instance = new Database();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Failed to load database state.");
+            e.printStackTrace();
+            instance = new Database();
+        }
+        return instance;
+    }
 
     private Database() {
         users = new ArrayList<>();
@@ -35,7 +76,7 @@ public class Database {
         return instance;
     }
 
-    public ObservableList<Showing> getShowings() {
+    public List<Showing> getShowings() {
         return showings;
     }
 
@@ -43,7 +84,7 @@ public class Database {
         this.showings = showings;
     }
 
-    public ObservableList<Sale> getSales() {
+    public List<Sale> getSales() {
         return sales;
     }
 

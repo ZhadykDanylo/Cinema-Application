@@ -2,7 +2,10 @@ package com.example.danylozhadyk711473endassignment.model;
 
 import java.time.LocalDateTime;
 
-public class Showing {
+import java.io.Serializable;
+
+public class Showing implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String title;
     private LocalDateTime startTime;

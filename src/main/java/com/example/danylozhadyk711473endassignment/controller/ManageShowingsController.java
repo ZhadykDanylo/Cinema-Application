@@ -3,6 +3,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 import com.example.danylozhadyk711473endassignment.database.Database;
 import com.example.danylozhadyk711473endassignment.model.Showing;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +65,7 @@ public class ManageShowingsController extends BaseController {
 
     private void setupDatabaseAndShowings() {
         database = Database.getInstance();
-        showings = database.getShowings();
+        showings = FXCollections.observableArrayList(database.getShowings());;
     }
 
     private void setupTableColumns() {
@@ -171,7 +172,7 @@ public class ManageShowingsController extends BaseController {
     }
 
     public void refreshShowings() {
-        showings = database.getShowings(); // Reload showings from database
+        showings = FXCollections.observableArrayList(database.getShowings());; // Reload showings from database
         showingsTable.setItems(showings);  // Update TableView
     }
 

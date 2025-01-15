@@ -3,6 +3,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 import com.example.danylozhadyk711473endassignment.model.Sale;
 import com.example.danylozhadyk711473endassignment.model.Showing;
 import com.example.danylozhadyk711473endassignment.database.Database;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -163,11 +164,11 @@ public class SelectSeatsController extends BaseController {
     }
 
     private void updateDatabase(String customerName) {
-        ObservableList<Showing> showings = database.getShowings();
+        ObservableList<Showing> showings = FXCollections.observableArrayList(database.getShowings());;
         updateShowingList(showings);
         database.setShowings(showings);
 
-        ObservableList<Sale> sales = database.getSales();
+        ObservableList<Sale> sales = FXCollections.observableArrayList(database.getSales());;
         addNewSale(sales, customerName);
         database.setSales(sales);
     }

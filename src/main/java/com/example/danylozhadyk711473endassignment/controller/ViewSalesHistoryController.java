@@ -4,6 +4,7 @@ import com.example.danylozhadyk711473endassignment.database.Database;
 import com.example.danylozhadyk711473endassignment.model.Sale;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -46,7 +47,7 @@ public class ViewSalesHistoryController extends BaseController {
     }
 
     private void loadSalesData() {
-        sales = database.getSales();
+        sales = FXCollections.observableArrayList(database.getSales());
     }
 
     private void setupTableColumns() {
