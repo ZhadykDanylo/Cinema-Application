@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPane" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.danylozhadyk711473endassignment.controller.MainPageController">
+
+    <!-- Static Header Section -->
+    <top>
+        <HBox spacing="20" styleClass="header">
+            <Label styleClass="cinema-label" text="Fantastic Cinema" />
+            <Button onAction="#showSellTicketsPnl" styleClass="header-button" text="Sell tickets" />
+            <Button fx:id="manageShowingsButton" onAction="#showManageShowingsPnl" styleClass="header-button" text="Manage showings" />
+            <Button fx:id="viewSalesHistoryButton" onAction="#showViewSalesHistoryPnl" styleClass="header-button" text="View sales history" />
+        </HBox>
+    </top>
+
+    <!-- Dynamic Content Section -->
+    <center>
+        <!-- Placeholder for dynamic content -->
+        <StackPane fx:id="contentPane" prefHeight="400.0">
+            <!-- Default content inside StackPane -->
+            <VBox prefHeight="38.0" prefWidth="461.0" spacing="10" styleClass="center-content">
+
+                <Label fx:id="welcomeLabel" styleClass="welcome-label" text="Welcome [name of user]" />
+
+                <Label fx:id="roleLabel" styleClass="role-label" text="You are logged in as [role]" />
+
+                <Label fx:id="dateTimeLabel" styleClass="date-time-label" text="The current date and time is [DD-MM-YYYY HH:MM]" />
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>

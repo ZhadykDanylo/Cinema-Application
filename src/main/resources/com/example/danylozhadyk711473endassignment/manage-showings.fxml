@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.danylozhadyk711473endassignment.controller.ManageShowingsController">
+
+    <!-- Title -->
+    <Label alignment="CENTER" contentDisplay="CENTER" styleClass="manage-label" text="Manage Showings" style="-fx-padding: 20 0 0 0;" />
+
+    <!-- TableView -->
+    <HBox alignment="CENTER" prefHeight="400.0" prefWidth="700.0">
+        <TableView fx:id="showingsTable" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="700.0" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="startColumn" prefWidth="125" text="Start" />
+                <TableColumn fx:id="endColumn" prefWidth="125" text="End" />
+                <TableColumn fx:id="titleColumn" prefWidth="281.0" text="Title" />
+                <TableColumn fx:id="seatsLeftColumn" prefWidth="144.0" text="Seats Left" />
+            </columns>
+        </TableView>
+    </HBox>
+
+    <!-- Buttons -->
+    <HBox alignment="CENTER" spacing="20" styleClass="button-box">
+        <Button fx:id="addShowingButton" onAction="#onAddButtonClicked" styleClass="add-button" text="Add showing" />
+        <Button fx:id="editButton" onAction="#onEditButtonClicked" styleClass="edit-button" text="Edit showing" />
+        <Button fx:id="deleteButton" onAction="#handleDeleteShowingButtonClick" styleClass="delete-button" text="Delete showing" />
+    </HBox>
+
+    <!-- Error Label -->
+    <Label fx:id="errorLabel" />
+</VBox>

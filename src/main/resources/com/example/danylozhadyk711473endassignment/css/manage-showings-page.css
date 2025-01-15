@@ -1,0 +1,88 @@
+.label {
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+    -fx-padding: 5;
+}
+.center-content {
+    -fx-padding: 40px;
+    -fx-alignment: CENTER;
+}
+
+/* Adjust TableView appearance */
+.table-view {
+    -fx-border-color: #333333;
+    -fx-border-radius: 5px;
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+}
+
+.column-header {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button-box {
+    -fx-padding: 20;
+    -fx-spacing: 20;
+    -fx-alignment: CENTER;
+}
+
+.add-button, .edit-button, .delete-button {
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+}
+
+.add-button:hover, .edit-button:hover, .delete-button:hover {
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-text-fill: black;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-border-color: black;
+}
+
+.add-button
+{
+    -fx-background-color: rgb(16, 44, 87);
+}
+
+.delete-button
+{
+    -fx-background-color: rgb(154, 3, 30);
+}
+
+.edit-button
+{
+    -fx-background-color: #333333;
+}
+
+.header {
+    -fx-background-color: black;
+    -fx-padding: 20px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 10;
+}
+
+.cinema-label {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding-right: 20px;
+}
+
+.header-button {
+    -fx-background-color: #444444;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5px;
+}
+
+.header-button:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}

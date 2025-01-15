@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.danylozhadyk711473endassignment.controller.SelectSeatsController">
+
+
+    <!-- Main Content Section -->
+    <Label fx:id="showingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="847.0" styleClass="showing-label" style="-fx-padding: 10 0 0 0;"/>
+        <!-- HBox to arrange VBoxes side by side (Viewscreen and Selected Seats List) -->
+        <HBox alignment="CENTER" prefHeight="493.0" prefWidth="828.0" spacing="20">
+
+            <!-- Left VBox: Viewscreen and Seat Grid -->
+            <VBox alignment="CENTER" maxWidth="491.0" prefHeight="450.0" prefWidth="491.0" spacing="15">
+                <Label styleClass="viewLabel" text="Viewscreen" />
+                <GridPane fx:id="seatGrid" alignment="CENTER" hgap="5.0" prefHeight="400.0" prefWidth="400.0" vgap="5.0" />
+            </VBox>
+
+            <!-- Right VBox: Selected Seats List -->
+            <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="250.0" spacing="10">
+                <Label styleClass="selectedLabel" text="Selected seats:" />
+                <ListView fx:id="selectedSeatsList" prefHeight="400.0" prefWidth="250.0" />
+            </VBox>
+        </HBox>
+
+    <!-- Bottom Section: Customer Name and Buttons -->
+        <HBox alignment="CENTER" prefHeight="70.0" spacing="15" style="-fx-padding: 0 0 10 0;">
+            <TextField fx:id="customerNameField" prefHeight="40.0" prefWidth="250.0" promptText="Customer name" />
+            <Button fx:id="sellButton" disable="true" onAction="#handleSellTickets" prefHeight="40.0" prefWidth="150.0" text="Sell 0 tickets" />
+            <Button onAction="#handleCancel" prefHeight="40.0" prefWidth="100.0" styleClass="cancelButton" text="Cancel" />
+        </HBox>
+</VBox>

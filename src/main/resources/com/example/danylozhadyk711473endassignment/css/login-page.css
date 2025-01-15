@@ -1,0 +1,27 @@
+.login-button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 10 20 10 20;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.error-label
+{
+    -fx-padding: 0;
+    -fx-text-fill: red;
+}
+
+.text-field {
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-padding: 4px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #808080;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-prompt-text-fill: #808080;
+}

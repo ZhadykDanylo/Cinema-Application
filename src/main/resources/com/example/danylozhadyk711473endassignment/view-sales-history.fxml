@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.danylozhadyk711473endassignment.controller.ViewSalesHistoryController">
+
+    <!-- Title -->
+    <Label alignment="CENTER" contentDisplay="CENTER" styleClass="view-sales-history-label" text="View Sales History" />
+
+    <!-- TableView -->
+    <HBox alignment="CENTER" prefHeight="400.0" prefWidth="700.0">
+        <TableView fx:id="salesTable" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="700.0" styleClass="table-view showings-table">
+            <columns>
+                <TableColumn fx:id="startDateColumn" prefWidth="125" text="Date/time" />
+                <TableColumn fx:id="numberOfTicketsColumn" prefWidth="118.0" text="Number of Tickets" />
+                <TableColumn fx:id="customerColumn" prefWidth="186.0" text="Customer" />
+                <TableColumn fx:id="showingColumn" prefWidth="246.0" text="Showing" />
+            </columns>
+        </TableView>
+    </HBox>
+</VBox>

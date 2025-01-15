@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.danylozhadyk711473endassignment.controller.SellTicketsController">
+
+    <!-- Outer Form Container with applied form-container style -->
+    <Label alignment="CENTER" contentDisplay="CENTER" styleClass="manage-label" text="Sell Tickets" />
+
+    <HBox alignment="CENTER" prefHeight="400.0" prefWidth="700.0">
+        <TableView fx:id="showingTable" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="700.0" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="startColumn" prefWidth="125" text="Start" />
+                <TableColumn fx:id="endColumn" prefWidth="125" text="End" />
+                <TableColumn fx:id="titleColumn" prefWidth="281.0" text="Title" />
+                <TableColumn fx:id="seatsColumn" prefWidth="144.0" text="Seats Left" />
+            </columns>
+        </TableView>
+    </HBox>
+        <!-- Selected Showing Section -->
+        <HBox alignment="CENTER" spacing="10">
+            <Label fx:id="selectedLabel" styleClass="header-label" text="Selected: ..." />
+        </HBox>
+
+        <!-- Single Button at the Bottom -->
+        <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="selectSeatsButton" disable="true" onAction="#onSelectSeatsButtonClicked" styleClass="blue-button" text="Select seat(s)" />
+        </HBox>
+
+</VBox>
