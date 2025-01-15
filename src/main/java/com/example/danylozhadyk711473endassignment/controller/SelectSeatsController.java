@@ -3,6 +3,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 import com.example.danylozhadyk711473endassignment.model.Sale;
 import com.example.danylozhadyk711473endassignment.model.Showing;
 import com.example.danylozhadyk711473endassignment.database.Database;
+import com.example.danylozhadyk711473endassignment.service.SaleService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,11 +53,14 @@ public class SelectSeatsController extends BaseController {
 
     private MainPageController mainPageController;
 
+    private SaleService saleService;
+
     @FXML
     public void initialize(StackPane currentView) {
         this.currentView = currentView;
         database = Database.getInstance();
         customerNameField.textProperty().addListener((observable, oldValue, newValue) -> updateSellButton());
+        saleService = new SaleService();
     }
 
     public void setShowing(Showing showing) {
@@ -168,9 +172,9 @@ public class SelectSeatsController extends BaseController {
         updateShowingList(showings);
         database.setShowings(showings);
 
-        ObservableList<Sale> sales = FXCollections.observableArrayList(database.getSales());;
+        ObservableList<Sale> sales = FXCollections.observableArrayList(saleService.getSales());;
         addNewSale(sales, customerName);
-        database.setSales(sales);
+        saleService.setSales(sales);
     }
 
     private void updateShowingList(ObservableList<Showing> showings) {

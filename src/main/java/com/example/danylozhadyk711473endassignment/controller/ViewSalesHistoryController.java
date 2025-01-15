@@ -2,6 +2,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 
 import com.example.danylozhadyk711473endassignment.database.Database;
 import com.example.danylozhadyk711473endassignment.model.Sale;
+import com.example.danylozhadyk711473endassignment.service.SaleService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -35,10 +36,13 @@ public class ViewSalesHistoryController extends BaseController {
 
     private Database database;
 
+    private SaleService saleService;
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        saleService = new SaleService();
         super.initialize(location, resources);
         database = Database.getInstance();
         loadSalesData();
@@ -47,7 +51,7 @@ public class ViewSalesHistoryController extends BaseController {
     }
 
     private void loadSalesData() {
-        sales = FXCollections.observableArrayList(database.getSales());
+        sales = FXCollections.observableArrayList(saleService.getSales());
     }
 
     private void setupTableColumns() {

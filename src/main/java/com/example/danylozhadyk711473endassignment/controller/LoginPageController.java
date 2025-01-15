@@ -1,7 +1,8 @@
 package com.example.danylozhadyk711473endassignment.controller;
 
 import com.example.danylozhadyk711473endassignment.database.Database;
-import com.example.danylozhadyk711473endassignment.model.User;
+import com.example.danylozhadyk711473endassignment.model.Employee;
+import com.example.danylozhadyk711473endassignment.service.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -29,8 +30,9 @@ public class LoginPageController {
     @FXML
     private Label errorLabel;
 
+    private EmployeeService employeeService;
     private Database database;
-    private User loggedInUser;
+    private Employee loggedInUser;
 
     public LoginPageController() {
         this.database = Database.getInstance();
@@ -40,6 +42,7 @@ public class LoginPageController {
     public void initialize() {
         usernameText.requestFocus();
         setupEnterKeyPress();
+        employeeService = new EmployeeService();
     }
 
     public void LoginClickButtonAction() {
@@ -58,7 +61,7 @@ public class LoginPageController {
         String username = usernameText.getText();
         String password = passwordText.getText();
 
-        loggedInUser = database.validateUser(username, password);
+        loggedInUser = employeeService.validateUser(username, password);
 
         if (loggedInUser != null) {
             closeLoginWindow();

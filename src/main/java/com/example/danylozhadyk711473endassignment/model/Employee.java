@@ -1,7 +1,7 @@
 package com.example.danylozhadyk711473endassignment.model;
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String password;
     private Role role;
 
-    public User(String name, String password, Role role) {
+    public Employee(String name, String password, Role role) {
         this.name = name;
         this.password = password;
         this.role = role;

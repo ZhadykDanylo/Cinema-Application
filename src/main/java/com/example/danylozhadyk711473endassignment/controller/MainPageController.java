@@ -1,8 +1,7 @@
 package com.example.danylozhadyk711473endassignment.controller;
 
 import com.example.danylozhadyk711473endassignment.model.Role;
-import com.example.danylozhadyk711473endassignment.model.Showing;
-import com.example.danylozhadyk711473endassignment.model.User;
+import com.example.danylozhadyk711473endassignment.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,19 +35,19 @@ public class MainPageController extends BaseController {
     @FXML
     private Button viewSalesHistoryButton;
 
-    public void setUser(User user) {
+    public void setUser(Employee user) {
         setupUserInfo(user);
         setupAccessRestrictions(user);
     }
 
-    private void setupUserInfo(User user) {
+    private void setupUserInfo(Employee user) {
         welcomeLabel.setText("Welcome " + user.getName());
         roleLabel.setText("You are logged in as " + user.getRole());
         String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         dateTimeLabel.setText("The current date and time is " + formattedDateTime);
     }
 
-    private void setupAccessRestrictions(User user) {
+    private void setupAccessRestrictions(Employee user) {
         if (user.getRole() == Role.Sales) {
             manageShowingsButton.setDisable(true);
             viewSalesHistoryButton.setDisable(true);

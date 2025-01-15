@@ -2,6 +2,7 @@ package com.example.danylozhadyk711473endassignment.controller;
 
 import com.example.danylozhadyk711473endassignment.database.Database;
 import com.example.danylozhadyk711473endassignment.model.Showing;
+import com.example.danylozhadyk711473endassignment.service.ShowingService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,9 +54,11 @@ public class ManageShowingsController extends BaseController {
     private Database database;
     private MainPageController mainPageController;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private ShowingService showingService;
 
     @FXML
     public void initialize(StackPane currentView) {
+        showingService = new ShowingService();
         this.currentView = currentView;
         setupDatabaseAndShowings();
         setupTableColumns();
@@ -65,7 +68,7 @@ public class ManageShowingsController extends BaseController {
 
     private void setupDatabaseAndShowings() {
         database = Database.getInstance();
-        showings = FXCollections.observableArrayList(database.getShowings());;
+        showings = FXCollections.observableArrayList(showingService.getShowings());;
     }
 
     private void setupTableColumns() {
@@ -131,6 +134,7 @@ public class ManageShowingsController extends BaseController {
         Showing selectedShowing = showingsTable.getSelectionModel().getSelectedItem();
         if (selectedShowing != null && canDeleteShowing(selectedShowing)) {
             showings.remove(selectedShowing);
+            showingService.setShowings(showings);
         } else {
             showError("Cannot delete showing: Tickets have already been sold.");
         }
@@ -172,7 +176,7 @@ public class ManageShowingsController extends BaseController {
     }
 
     public void refreshShowings() {
-        showings = FXCollections.observableArrayList(database.getShowings());; // Reload showings from database
+        showings = FXCollections.observableArrayList(showingService.getShowings());; // Reload showings from database
         showingsTable.setItems(showings);  // Update TableView
     }
 

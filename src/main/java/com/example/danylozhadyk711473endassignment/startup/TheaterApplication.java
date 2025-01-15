@@ -21,7 +21,7 @@ public class TheaterApplication extends Application {
 
     @Override
     public void stop() {
-        Database.getInstance().saveState(); // Save database state at exit
+        Database.getInstance().saveState();
     }
 
     public static void main(String[] args) {

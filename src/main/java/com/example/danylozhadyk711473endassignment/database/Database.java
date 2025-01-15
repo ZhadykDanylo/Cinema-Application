@@ -2,7 +2,7 @@ package com.example.danylozhadyk711473endassignment.database;
 import com.example.danylozhadyk711473endassignment.model.Role;
 import com.example.danylozhadyk711473endassignment.model.Sale;
 import com.example.danylozhadyk711473endassignment.model.Showing;
-import com.example.danylozhadyk711473endassignment.model.User;
+import com.example.danylozhadyk711473endassignment.model.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,7 +15,7 @@ public class Database implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static Database instance;
-    private List<User> users;
+    private List<Employee> users;
     private List<Showing> showings;
     private List<Sale> sales;
 
@@ -36,7 +36,7 @@ public class Database implements Serializable {
     // Load the database state
     public static Database loadState() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATABASE_FILE))) {
-            List<User> loadedUsers = (List<User>) ois.readObject();
+            List<Employee> loadedUsers = (List<Employee>) ois.readObject();
             List<Showing> loadedShowings = (List<Showing>) ois.readObject();
             List<Sale> loadedSales = (List<Sale>) ois.readObject();
 
@@ -62,8 +62,8 @@ public class Database implements Serializable {
         showings = FXCollections.observableArrayList();
         sales = FXCollections.observableArrayList();
 
-        users.add(new User("Mike", "12345678", Role.Management));
-        users.add(new User("Anka", "87654321", Role.Sales));
+        users.add(new Employee("Mike", "12345678", Role.Management));
+        users.add(new Employee("Anka", "87654321", Role.Sales));
 
         showings.add(new Showing("Whispers of the Night", LocalDateTime.of(2024, 10, 15, 18, 30), LocalDateTime.of(2024, 10, 15, 20, 30)));
         showings.add(new Showing("Galactic Odyssey", LocalDateTime.of(2025, 10, 15, 21, 00), LocalDateTime.of(2025, 10, 15, 23, 00)));
@@ -92,10 +92,10 @@ public class Database implements Serializable {
         this.sales = sales;
     }
 
-    public User validateUser(String name, String password) {
-        for (User user : users) {
+    public Employee validateUser(String name, String password) {
+        for (Employee user : users) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
-                return new User(user.getName(), user.getPassword(), user.getRole());
+                return new Employee(user.getName(), user.getPassword(), user.getRole());
             }
         }
         return null;
