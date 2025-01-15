@@ -49,7 +49,7 @@ public class MainPageController extends BaseController {
     }
 
     private void setupAccessRestrictions(User user) {
-        if (user.getRole() == Role.User) {
+        if (user.getRole() == Role.Sales) {
             manageShowingsButton.setDisable(true);
             viewSalesHistoryButton.setDisable(true);
         }

@@ -62,8 +62,8 @@ public class Database implements Serializable {
         showings = FXCollections.observableArrayList();
         sales = FXCollections.observableArrayList();
 
-        users.add(new User("Mike", "12345678", Role.Admin));
-        users.add(new User("Anka", "87654321", Role.User));
+        users.add(new User("Mike", "12345678", Role.Management));
+        users.add(new User("Anka", "87654321", Role.Sales));
 
         showings.add(new Showing("Whispers of the Night", LocalDateTime.of(2024, 10, 15, 18, 30), LocalDateTime.of(2024, 10, 15, 20, 30)));
         showings.add(new Showing("Galactic Odyssey", LocalDateTime.of(2025, 10, 15, 21, 00), LocalDateTime.of(2025, 10, 15, 23, 00)));
