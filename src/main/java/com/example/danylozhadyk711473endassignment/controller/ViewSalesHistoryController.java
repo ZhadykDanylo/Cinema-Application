@@ -7,13 +7,20 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.scene.layout.StackPane;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewSalesHistoryController extends BaseController {
 
@@ -31,6 +38,9 @@ public class ViewSalesHistoryController extends BaseController {
 
     @FXML
     private TableColumn<Sale, String> showingColumn;
+
+    @FXML
+    private Button exportButton;
 
     private ObservableList<Sale> sales;
 
@@ -66,7 +76,7 @@ public class ViewSalesHistoryController extends BaseController {
 
         // Combine showing details
         showingColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                createFullShowing(cellData.getValue().getEndTime(), cellData.getValue().getShowingName())
+                createFullShowing(cellData.getValue().getStartTime(), cellData.getValue().getShowingName())
         ));
     }
 
@@ -75,8 +85,48 @@ public class ViewSalesHistoryController extends BaseController {
         return new SimpleStringProperty(formattedTime);
     }
 
-    private String createFullShowing(LocalDateTime endTime, String showingName) {
-        String formattedEndTime = endTime.format(formatter);
-        return formattedEndTime + " " + showingName;
+    private String createFullShowing(LocalDateTime startTime, String showingName) {
+        String formattedStartTime = startTime.format(formatter);
+        return formattedStartTime + " " + showingName;
+    }
+
+    @FXML
+    private void handleExportCustomers(ActionEvent event) {
+        // Get unique customers with email
+        Map<String, Sale> customerMap = new HashMap<>();
+        for (Sale sale : sales) {
+            if (sale.getCustomerEmail() != null && !sale.getCustomerEmail().isEmpty()) {
+                String email = sale.getCustomerEmail();
+                if (!customerMap.containsKey(email) || sale.getStartTime().isAfter(customerMap.get(email).getStartTime())) {
+                    customerMap.put(email, sale);
+                }
+            }
+        }
+
+        // Prompt user for file location
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Customer Data");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(exportButton.getScene().getWindow());
+
+        if (file != null) {
+            saveCustomerDataToFile(customerMap, file);
+        }
+    }
+
+    private void saveCustomerDataToFile(Map<String, Sale> customerMap, File file) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("name,email,last_sale\n");
+
+            for (Sale sale : customerMap.values()) {
+                writer.write(String.format("%s,%s,%s\n",
+                        sale.getCustomerName(),
+                        sale.getCustomerEmail(),
+                        sale.getStartTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                ));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

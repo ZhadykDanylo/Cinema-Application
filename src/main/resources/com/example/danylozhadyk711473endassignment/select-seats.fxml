@@ -27,6 +27,7 @@
     <!-- Bottom Section: Customer Name and Buttons -->
         <HBox alignment="CENTER" prefHeight="70.0" spacing="15" style="-fx-padding: 0 0 10 0;">
             <TextField fx:id="customerNameField" prefHeight="40.0" prefWidth="250.0" promptText="Customer name" />
+            <TextField fx:id="customerEmailField" prefHeight="40.0" prefWidth="250.0" promptText="Customer email" />
             <Button fx:id="sellButton" disable="true" onAction="#handleSellTickets" prefHeight="40.0" prefWidth="150.0" text="Sell 0 tickets" />
             <Button onAction="#handleCancel" prefHeight="40.0" prefWidth="100.0" styleClass="cancelButton" text="Cancel" />
         </HBox>

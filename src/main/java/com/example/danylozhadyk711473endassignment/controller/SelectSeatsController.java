@@ -36,6 +36,9 @@ public class SelectSeatsController extends BaseController {
     private TextField customerNameField;
 
     @FXML
+    private TextField customerEmailField;
+
+    @FXML
     private Button sellButton;
 
     @FXML
@@ -50,8 +53,6 @@ public class SelectSeatsController extends BaseController {
     private Database database;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
-    private MainPageController mainPageController;
 
     private SaleService saleService;
 
@@ -149,9 +150,14 @@ public class SelectSeatsController extends BaseController {
     private void handleSellTickets(ActionEvent event) {
         if (selectedSeats.isEmpty()) return;
 
-        String customerName = customerNameField.getText();
+        String customerName = customerNameField.getText().trim();
+        String customerEmail = customerEmailField.getText().trim(); // Optional field
+        if (customerEmail.isEmpty()) {
+            customerEmail = null; // Explicitly set to null if empty
+        }
+
         commitSeatSelections();
-        updateDatabase(customerName);
+        updateDatabase(customerName, customerEmail);
         resetSelection();
         loadSeats(currentShowing);
         handleCancel(event);
@@ -167,13 +173,13 @@ public class SelectSeatsController extends BaseController {
         currentShowing.setSeatsLeft(seatsLeft);
     }
 
-    private void updateDatabase(String customerName) {
-        ObservableList<Showing> showings = FXCollections.observableArrayList(database.getShowings());;
+    private void updateDatabase(String customerName, String customerEmail) {
+        ObservableList<Showing> showings = FXCollections.observableArrayList(database.getShowings());
         updateShowingList(showings);
         database.setShowings(showings);
 
-        ObservableList<Sale> sales = FXCollections.observableArrayList(saleService.getSales());;
-        addNewSale(sales, customerName);
+        ObservableList<Sale> sales = FXCollections.observableArrayList(saleService.getSales());
+        addNewSale(sales, customerName, customerEmail);
         saleService.setSales(sales);
     }
 
@@ -191,9 +197,8 @@ public class SelectSeatsController extends BaseController {
                 showing.getStartTime().equals(currentShowing.getStartTime());
     }
 
-    private void addNewSale(ObservableList<Sale> sales, String customerName) {
-        Sale sale = new Sale(LocalDateTime.now(), currentShowing.getStartTime(),
-                selectedSeats.size(), customerName, currentShowing.getTitle());
+    private void addNewSale(ObservableList<Sale> sales, String customerName, String customerEmail) {
+        Sale sale = new Sale(LocalDateTime.now(), selectedSeats.size(), customerName, customerEmail, currentShowing.getTitle());
         sales.add(sale);
     }
 
@@ -212,8 +217,5 @@ public class SelectSeatsController extends BaseController {
                 },
                 this.currentView);
     }
-
-    public void setMainPageController(MainPageController mainPageController) {
-        this.mainPageController = mainPageController;
-    }
 }
+

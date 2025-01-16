@@ -15,15 +15,19 @@ public class Sale implements Serializable {
 
     private String customerName;
 
+    private String customerEmail;
+
     private String showingName;
 
-    public Sale( LocalDateTime startTime , LocalDateTime endTime, int numberOfTickets, String customerName, String showingName) {
+    public Sale(LocalDateTime startTime, int numberOfTickets, String customerName, String customerEmail, String showingName) {
         this.startTime = startTime;
-        this.endTime = endTime;
         this.numberOfTickets = numberOfTickets;
         this.customerName = customerName;
+        this.customerEmail = (customerEmail == null || customerEmail.isEmpty()) ? null : customerEmail;
         this.showingName = showingName;
     }
+
+    public String getCustomerEmail() { return customerEmail; }
 
     public LocalDateTime getStartTime() {
         return startTime;

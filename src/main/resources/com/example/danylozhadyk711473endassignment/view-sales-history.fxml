@@ -19,4 +19,8 @@
             </columns>
         </TableView>
     </HBox>
+
+    <!-- Export Button -->
+    <Button fx:id="exportButton" text="Export Customers" onAction="#handleExportCustomers" />
+
 </VBox>
