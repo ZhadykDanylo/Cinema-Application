@@ -57,6 +57,14 @@ public class ManageShowingsController extends BaseController {
     private ShowingService showingService;
 
     @FXML
+    private RadioButton allShowingsRadioButton;
+
+    @FXML
+    private RadioButton futureShowingsRadioButton;
+
+    private ToggleGroup showingFilterGroup;
+
+    @FXML
     public void initialize(StackPane currentView) {
         showingService = new ShowingService();
         this.currentView = currentView;
@@ -64,6 +72,41 @@ public class ManageShowingsController extends BaseController {
         setupTableColumns();
         showingsTable.setItems(showings);
         configureButtons();
+
+        // Configure the radio buttons
+        setupRadioButtons();
+    }
+
+    private void setupRadioButtons() {
+        showingFilterGroup = new ToggleGroup();
+        allShowingsRadioButton.setToggleGroup(showingFilterGroup);
+        futureShowingsRadioButton.setToggleGroup(showingFilterGroup);
+
+        showingFilterGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> filterShowings());
+    }
+
+    private void filterShowings() {
+        if (futureShowingsRadioButton.isSelected()) {
+            showFutureShowings();
+        } else {
+            showAllShowings();
+        }
+    }
+
+    private void showAllShowings() {
+        showings = FXCollections.observableArrayList(showingService.getShowings());
+        showingsTable.setItems(showings);
+    }
+
+    private void showFutureShowings() {
+        ObservableList<Showing> futureShowings = FXCollections.observableArrayList();
+        LocalDateTime now = LocalDateTime.now();
+        for (Showing showing : showingService.getShowings()) {
+            if (showing.getStartTime().isAfter(now)) {
+                futureShowings.add(showing);
+            }
+        }
+        showingsTable.setItems(futureShowings);
     }
 
     private void setupDatabaseAndShowings() {
