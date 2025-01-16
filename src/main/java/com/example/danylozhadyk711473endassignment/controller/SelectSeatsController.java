@@ -200,6 +200,7 @@ public class SelectSeatsController extends BaseController {
     private void addNewSale(ObservableList<Sale> sales, String customerName, String customerEmail) {
         Sale sale = new Sale(LocalDateTime.now(), selectedSeats.size(), customerName, customerEmail, currentShowing.getTitle());
         sales.add(sale);
+        saleService.setSales(sales);
     }
 
     private void resetSelection() {
