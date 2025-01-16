@@ -48,31 +48,4 @@ public abstract class BaseController implements Initializable {
         }
 
     }
-
-    protected void setEnterKeyNavigation(Node[] inputFields, Node nextNode) {
-        for(int i = 0; i < inputFields.length; ++i) {
-            int index = i;
-            Node currentNode = inputFields[i];
-            currentNode.setOnKeyPressed((event) -> {
-                if (event.getCode() == KeyCode.ENTER) {
-                    event.consume();
-                    if (index < inputFields.length - 1) {
-                        inputFields[index + 1].requestFocus();
-                    } else {
-                        nextNode.requestFocus();
-                    }
-                }
-
-            });
-        }
-
-    }
-
-    protected void setTableView(TableView tableView, TableColumn<Showing, String> startColumn, TableColumn<Showing, String> endColumn, TableColumn<Showing, String> titleColumn, TableColumn<Showing, String> seatsColumn, ObservableList<Showing> showings) {
-        startColumn.setCellValueFactory(new PropertyValueFactory("formattedStart"));
-        endColumn.setCellValueFactory(new PropertyValueFactory("formattedEnd"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory("title"));
-        seatsColumn.setCellValueFactory(new PropertyValueFactory("seats"));
-        tableView.setItems(showings);
-    }
 }
