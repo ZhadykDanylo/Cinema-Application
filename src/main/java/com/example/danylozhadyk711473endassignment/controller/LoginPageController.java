@@ -5,12 +5,9 @@ import com.example.danylozhadyk711473endassignment.model.Employee;
 import com.example.danylozhadyk711473endassignment.service.EmployeeService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -34,6 +31,9 @@ public class LoginPageController {
     private Database database;
     private Employee loggedInUser;
 
+    private int loginAttempts;
+    private static final int MAX_ATTEMPTS = 3;
+
     public LoginPageController() {
         this.database = Database.getInstance();
     }
@@ -43,6 +43,7 @@ public class LoginPageController {
         usernameText.requestFocus();
         setupEnterKeyPress();
         employeeService = new EmployeeService();
+        loginAttempts = 0;
     }
 
     public void LoginClickButtonAction() {
@@ -58,6 +59,11 @@ public class LoginPageController {
     }
 
     private void handleLogin() {
+        if (loginAttempts >= MAX_ATTEMPTS) {
+            showAccountLockedException("Your account has been locked.");
+            return;
+        }
+
         String username = usernameText.getText();
         String password = passwordText.getText();
 
@@ -67,8 +73,27 @@ public class LoginPageController {
             closeLoginWindow();
             openMainPage();
         } else {
-            displayError();
+            loginAttempts++;
+            if (loginAttempts > MAX_ATTEMPTS) {
+                showAccountLockedException("Your account has been locked.");
+            } else {
+                displayError();
+            }
         }
+    }
+
+    private void showAccountLockedException(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Account Locked");
+        alert.setHeaderText("Account Locked");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+
+        // Exit the application
+        Stage stage = (Stage) usernameText.getScene().getWindow();
+        stage.close();
+        System.exit(0);
     }
 
     private void closeLoginWindow() {
